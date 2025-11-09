@@ -53,15 +53,30 @@ body {
     height: auto;
     border: none;
     border-bottom: 2px solid #000;
-    justify-content: flex-start;
-    padding: 10px 20px; /* 균등 */
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    align-items: center;
+    padding: 13px 10px 13px 4px; /* 위 오른 아래 왼 */
     z-index: 999;
   }
+
+  .sidebar a {
+    display: flex;          /* 링크 전체를 블록처럼 */
+    align-items: center;    /* 로고 세로 가운데 맞춤 */
+    justify-content: flex-start;
+  }
+
   .sidebar img {
-    width: 140px; /* 모바일용 로고 크기 */
-    margin-left: 0;
+    width: 140px;
+    height: auto;
+    object-fit: contain;
+    display: block;         /* inline 여백 제거 */
+    margin-left: 0;         /* 혹시 남는 마진 제거 */
   }
 }
+
+
+
 
 
 
@@ -194,7 +209,16 @@ body {
       <button class="btn" id="motionBtn">모션 포스터 | Motion Poster</button>
       <div class="poster-container" id="posterContainer">
         <img id="posterImage" src="poster.jpg" alt="전시 포스터">
-        <video id="posterVideo" src="motionposter.mp4" muted loop></video>
+       
+        <video 
+  id="posterVideo" 
+  src="motionposter.mp4" 
+  muted 
+  playsinline 
+  autoplay 
+  loop>
+</video>
+
       </div>
     </div>
 
