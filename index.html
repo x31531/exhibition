@@ -211,15 +211,16 @@ body {
         <img id="posterImage" src="poster.jpg" alt="전시 포스터">
        
        <video 
-  id="posterVideo"
-  src="motionposter.mp4"
-  muted
-  playsinline
-  preload="auto"
-  loop
-  style="display:none"
-></video>
-
+    
+       id="posterVideo"
+       src="motionposter.mp4"
+       muted
+       playsinline
+       webkit-playsinline
+       preload="auto"
+       loop
+       style="display:none"
+     ></video>
 
       </div>
     </div>
@@ -294,21 +295,39 @@ body {
   </div>
 
   <script>
-  const motionBtn = document.getElementById('motionBtn');
-  const posterImage = document.getElementById('posterImage');
-  const posterVideo = document.getElementById('posterVideo');
-  motionBtn.addEventListener('click', () => {
-    const active = motionBtn.classList.toggle('active');
-    if (active) {
-      posterImage.style.display = 'none';
-      posterVideo.style.display = 'block';
-      posterVideo.play();
-    } else {
-      posterVideo.pause();
+ const motionBtn = document.getElementById('motionBtn');
+const posterImage = document.getElementById('posterImage');
+const posterVideo = document.getElementById('posterVideo');
+
+motionBtn.addEventListener('click', async () => {
+  const active = motionBtn.classList.toggle('active');
+  
+  if (active) {
+    posterImage.style.display = 'none';
+    posterVideo.style.display = 'block';
+    
+    // 비디오가 준비될 때까지 기다림
+    try {
+      await posterVideo.play();
+    } catch (error) {
+      console.error('Video play failed:', error);
+      // 재생 실패시 원상복구
+      motionBtn.classList.remove('active');
       posterVideo.style.display = 'none';
       posterImage.style.display = 'block';
     }
-  });
+  } else {
+    posterVideo.pause();
+    posterVideo.currentTime = 0; // 처음으로 되돌림
+    posterVideo.style.display = 'none';
+    posterImage.style.display = 'block';
+  }
+});
+
+// 비디오 로드 에러 처리
+posterVideo.addEventListener('error', (e) => {
+  console.error('Video loading error:', e);
+});
   </script>
 </body>
 </html>
