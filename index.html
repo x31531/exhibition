@@ -299,30 +299,55 @@ body {
 const posterImage = document.getElementById('posterImage');
 const posterVideo = document.getElementById('posterVideo');
 
+// 모바일 체크
+const isMobile = window.innerWidth <= 1100;
+
 motionBtn.addEventListener('click', async () => {
-  const active = motionBtn.classList.toggle('active');
-  
-  if (active) {
-    posterImage.style.display = 'none';
+  if (isMobile) {
+    // 모바일: 비디오 전체화면 재생
     posterVideo.style.display = 'block';
+    posterVideo.style.position = 'fixed';
+    posterVideo.style.top = '0';
+    posterVideo.style.left = '0';
+    posterVideo.style.width = '100vw';
+    posterVideo.style.height = '100vh';
+    posterVideo.style.objectFit = 'contain';
+    posterVideo.style.backgroundColor = '#000';
+    posterVideo.style.zIndex = '9999';
     
-    // 비디오가 준비될 때까지 기다림
     try {
       await posterVideo.play();
+      
+      // 비디오 탭하면 닫기
+      posterVideo.addEventListener('click', function closeVideo() {
+        posterVideo.pause();
+        posterVideo.currentTime = 0;
+        posterVideo.style.display = 'none';
+        posterVideo.style.position = '';
+        posterVideo.removeEventListener('click', closeVideo);
+      });
+      
     } catch (error) {
-      console.error('Video play failed:', error);
-      // 재생 실패시 원상복구
-      motionBtn.classList.remove('active');
+      console.error('재생 실패:', error);
+      posterVideo.style.display = 'none';
+      posterVideo.style.position = '';
+    }
+    
+  } else {
+    // PC: 기존 방식
+    const active = motionBtn.classList.toggle('active');
+    if (active) {
+      posterImage.style.display = 'none';
+      posterVideo.style.display = 'block';
+      posterVideo.play();
+    } else {
+      posterVideo.pause();
       posterVideo.style.display = 'none';
       posterImage.style.display = 'block';
     }
-  } else {
-    posterVideo.pause();
-    posterVideo.currentTime = 0; // 처음으로 되돌림
-    posterVideo.style.display = 'none';
-    posterImage.style.display = 'block';
   }
 });
+
 
 // 비디오 로드 에러 처리
 posterVideo.addEventListener('error', (e) => {
