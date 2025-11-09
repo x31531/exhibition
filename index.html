@@ -25,16 +25,45 @@ body {
   background: #fff;
   border-right: 2px solid #000;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
-  padding: 20px 10px 0 10px;
+  padding: 15px 12px 0 10px; /* 좌우 완전 동일 */
   box-sizing: border-box;
 }
+
+.sidebar a {
+  display: block;
+  width: 100%;
+}
+
 .sidebar img {
-  width: 90%;
+  width: 200px; /* 비율 말고 픽셀로 고정해서 중심 흔들림 제거 */
   height: auto;
   object-fit: contain;
+  display: block;
+  margin: 0 auto 0 0; /* 왼쪽 정렬 유지 */
 }
+
+/* 모바일 환경 */
+@media (max-width: 1100px) {
+  .sidebar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: auto;
+    border: none;
+    border-bottom: 2px solid #000;
+    justify-content: flex-start;
+    padding: 10px 20px; /* 균등 */
+    z-index: 999;
+  }
+  .sidebar img {
+    width: 140px; /* 모바일용 로고 크기 */
+    margin-left: 0;
+  }
+}
+
+
 
 .main {
   margin-left: 220px;
@@ -150,7 +179,9 @@ body {
 
 <body>
   <div class="sidebar">
-    <img src="난미창로고.jpg" alt="서울시립 난지미술창작스튜디오 로고">
+    <a href="https://sema.seoul.go.kr/" target="_blank">
+      <img src="난미창로고.jpg" alt="서울시립 난지미술창작스튜디오 로고">
+    </a>
   </div>
 
   <div class="main">
@@ -189,21 +220,13 @@ body {
 
       <div class="info-block">
         <p><strong>기간</strong>2030.9.23.(월)―10.23.(수)</p>
-        
         <p><strong>장소</strong>서울시립 난지미술창작스튜디오 1층 전시실1</p>
-        
         <p><strong>주최</strong>서울시립미술관</p>
-        
         <p><strong>후원</strong>한국문화예술교육진흥원</p>
-        
         <p><strong>기획</strong>권정원</p>
-        
         <p><strong>관람시간</strong>화―일 10:00―18:00 (월요일 휴관)</p>
-        
         <p><strong>관람료</strong>무료</p>
-        
         <p><strong>주소</strong>우편번호 03900<br>서울 마포구 하늘공원로 108-1(상암동)</p>
-        
         <p><strong>문의</strong>x315313@gmail.com</p>
       </div>
     </div>
@@ -230,21 +253,13 @@ body {
 
       <div class="info-block">
         <p><strong>Period</strong>2030.9.23 ― 2030.10.23</p>
-        
         <p><strong>Venue</strong>Seoul Museum of Art, Nanji Residency, Exhibition Hall 1</p>
-        
         <p><strong>Organized by</strong>Seoul Museum of Art</p>
-        
         <p><strong>Sponsored by</strong>Korea Arts & Education Service</p>
-        
         <p><strong>Curated by</strong>Kwon Jeongwon</p>
-        
         <p><strong>Opening Hours</strong>Tue–Sun 10:00–18:00 (Closed on Mondays)</p>
-        
         <p><strong>Admission</strong>Free</p>
-        
         <p><strong>Address</strong>108-1 Haneulgongwon-ro, Sangam-dong, Mapo-gu, Seoul 03900, Korea</p>
-        
         <p><strong>Contact</strong>x315313@gmail.com</p>
       </div>
 
